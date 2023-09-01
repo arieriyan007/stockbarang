@@ -76,27 +76,68 @@ include "../layouts/header.php";
                   </thead>
                   
                   <tbody>
-                    <!-- menampilkan database dengan php -->
+                  <!-- menampilkan database dengan php -->
                     <?php 
                     $no = 1;
                     $datamasuk = mysqli_query($koneksi, "SELECT * FROM masuk m, stock s WHERE s.idbarang = m.idbarang");
-
+                    
                     while ($dm = mysqli_fetch_array($datamasuk)) {
+                      $idm = $dm['idmasuk'];
+                      $idb = $dm['idbarang'];
                       $nmbarang = $dm['namabarang'];
                       $qty = $dm['qty'];
                       $tanggal = $dm['tanggal'];
                       $ket = $dm['keterangan'];
-
-                    ?>
+                      
+                      ?>
                     <tr>
-                      <td><?= $no++; ?></td>
+                      <td><?= $no++?></td>
                       <td><?= $nmbarang; ?></td>
                       <td><?= $tanggal; ?></td>
                       <td><?= $qty; ?></td>
                       <td><?= $ket; ?></td>
                       <td>
-                        <button class="btn btn-warning btn-sm my-1">Edit</button>
+                        <!-- button edit -->
+                      <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit<?= $idm; ?>" title="Edit barang">
+                          <i class="fas fa-edit"></i> Edit
+                      </button>
+
+                      <!-- Edit Modal  -->
+                      <div class="modal fade" id="edit<?= $idm; ?>">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+
+                              <!-- Edit Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title">Edit Stock</h4> <br>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+                              
+                              <!-- Edit body -->
+                              <form action="editMasuk.php" method="post">
+                                <div class="modal-body">
+                                <input type="text" name="nmbarang" class="form-control" value="<?= $nmbarang; ?>" disabled>
+                                <input type="number" name="qty" class="form-control my-1" value="<?= $qty; ?>">
+                                <input type="text" name="keterangan" class="form-control" value="<?= $ket; ?>">
+                                <!-- lakukan parsing sebagai tanda pengeal di idbarang -->
+                                <input type="hidden" name="idm" value="<?= $idm; ?>">
+                                <input type="hidden" name="idb" value="<?= $idb; ?>">
+                              </div>
+
+                              <!-- Edit footer -->
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" name="updateMasuk">Update</button>
+                              </div>
+                              </form>
+
+                            </div>
+                          </div>
+                        </div>
+                        <!-- akhir button edit -->
+
+                        <!-- button hapus/delete -->
                         <button class="btn btn-danger btn-sm">Hapus</button>
+                        <!-- akhir button delete -->
                       </td>
                     </tr>
 
