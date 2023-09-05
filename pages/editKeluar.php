@@ -17,7 +17,7 @@ if (isset($_POST['updateKeluar'])) {
     $qtynya = mysqli_fetch_array($qtyskrng);
     $qtynow = $qtynya['qty'];
 
-    // lakukan if sebagai pelogikaannya
+    // lakukan if sebagai logikaannya
     if ($qty>$qtynow) {
         // hitung selisihnya
         $selisih = $qty-$qtynow;
@@ -28,7 +28,7 @@ if (isset($_POST['updateKeluar'])) {
 
         // jika logika diatas benar maka kembalikan ke halaman keluar.php
         if ($kuranginstock&&$updatestock) {
-            header("location:kerluar.php?pesan=updatekeluarberhasil");
+            header("location:keluar.php?pesan=updatekeluarberhasil");
         } else {
             header("location:keluar.php?pesan=gagalupdatekeluar");
         }
@@ -41,7 +41,7 @@ if (isset($_POST['updateKeluar'])) {
 
         // jika logika diatas benar maka kembalikan ke halaman keluar.php
         if ($tambahkanstock&&$updatestock) {
-            header("location:kerluar.php?pesan=updatekeluarberhasil");
+            header("location:keluar.php?pesan=updatekeluarberhasil");
         } else {
             header("location:keluar.php?pesan=gagalupdatekeluar");
         }
