@@ -22,7 +22,7 @@ if (isset($_POST['updateMasuk'])) {
     if ($qty > $dataqty) {
         // hitung selisinya dikurangin
         $selisih = $qty-$dataqty;
-        $kurangin = $stockskrg - $selisih;
+        $kurangin = $stockskrg + $selisih;
 
         // masuk proses update kedalam database stock
         $stocknya = mysqli_query($koneksi, "UPDATE stock SET stock='$kurangin' WHERE idbarang='$idb' ");
@@ -37,7 +37,7 @@ if (isset($_POST['updateMasuk'])) {
     } else {
         // hitung selisinya posisinya dibalik 
         $selisih = $dataqty-$qty;
-        $tambahkan = $stockskrg + $selisih;
+        $tambahkan = $stockskrg - $selisih;
 
         // masuk proses update kedalam database stock
         $stocknya = mysqli_query($koneksi, "UPDATE stock SET stock='$tambahkan' WHERE idbarang='$idb' ");

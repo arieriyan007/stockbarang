@@ -80,7 +80,9 @@ include "../layouts/header.php";
                     $no = 1;
                     $datakeluar = mysqli_query($koneksi,"SELECT * FROM keluar k, stock s WHERE s.idbarang=k.idbarang");
                     while ($dk = mysqli_fetch_array($datakeluar)) {
-                      $idb = $dk['namabarang'];
+                      $idk = $dk['idkeluar'];
+                      $idb = $dk['idbarang'];
+                      $nmbarang = $dk['namabarang'];
                       $qty = $dk['qty'];
                       $tanggal = $dk['tanggal'];
                       $penerima = $dk['penerima'];
@@ -88,13 +90,52 @@ include "../layouts/header.php";
                     ?>
                     <tr>
                       <td><?= $no++; ?></td>
-                      <td><?= $idb; ?></td>
+                      <td><?= $nmbarang; ?></td>
                       <td><?= $qty; ?></td>
                       <td><?= $tanggal; ?></td>
                       <td><?= $penerima; ?></td>
                       <td>
-                        <button class="btn btn-warning btn-sm my-1" title="edit barang">Edit</button>
+                        <!-- membuat button modal Edit -->
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#myEdit<?= $idk; ?>" title="Edit barang">
+                         <i class="fas fa-edit"></i> Edit
+                        </button>     
+                        <!-- The Modal -->
+                        <div class="modal fade" id="myEdit<?= $idk; ?>">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+
+                              <!-- Modal Header -->
+                              <form action="editKeluar.php" method="post">
+                              <div class="modal-header">
+                                <h4 class="modal-title">Edit data Barang keluar</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+
+                              <!-- Modal body -->
+                              <div class="modal-body">
+                                <input type="hidden" name="idk1" value="<?= $idk; ?>">
+                                <input type="hidden" name="idb1" value="<?= $idb; ?>">
+
+                                <input type="text" name="nmbarang1" class="form-control" value="<?= $nmbarang; ?>" disabled>
+                                <input type="number" name="qty1" class="form-control my-1" value="<?= $qty; ?>">
+                                <input type="text" name="penerima1" class="form-control" value="<?= $penerima; ?>">
+                              </div>
+
+                              <!-- Modal footer -->
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" name="updateKeluar" data-bs-dismiss="modal">Save</button>
+                              </div>
+                              </form>
+
+                            </div>
+                          </div>
+                        </div>
+                        <!-- akhir button modal edit -->
+
+                        <!-- button hapus modal -->
+
                         <button class="btn btn-danger btn-sm" title="hapus barang">Hapus</button>
+                        <!-- akhir hapus modal -->
                       </td>
                     </tr>
                     <?php 
