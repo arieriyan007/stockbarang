@@ -136,7 +136,40 @@ include "../layouts/header.php";
                         <!-- akhir button edit -->
 
                         <!-- button hapus/delete -->
-                        <button class="btn btn-danger btn-sm">Hapus</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#del<?= $idm; ?>" title="Delete/hapus barang">
+                          <i class="fas fa-trash"></i> Hapus
+                      </button>
+
+                      <!-- Hapus Modal  -->
+                      <div class="modal fade" id="del<?= $idm; ?>">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+
+                              <!-- Hapus Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title">Hapus Stock</h4> <br>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+                              
+                              <!-- Hapus body -->
+                              <form action="hapusMasuk.php" method="post">
+                                <div class="modal-body">
+                                Yakin ingin menghapus barang ini : <b><?= $nmbarang; ?></b> !
+                                <!-- lakukan parsing sebagai tanda pengeal di idbarang -->
+                                <input type="hidden" name="idm" value="<?= $idm; ?>">
+                                <input type="hidden" name="idbarang" value="<?= $idb; ?>">
+                                <input type="hidden" name="quantity" value="<?= $qty; ?>">
+                              </div>
+
+                              <!-- Hapus footer -->
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger" name="delMasuk">Hapus</button>
+                              </div>
+                              </form>
+
+                            </div>
+                          </div>
+                        </div>
                         <!-- akhir button delete -->
                       </td>
                     </tr>
