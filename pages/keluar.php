@@ -133,8 +133,37 @@ include "../layouts/header.php";
                         <!-- akhir button modal edit -->
 
                         <!-- button hapus modal -->
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#myHapus<?= $idk; ?>" title="Delete/hapus barang">
+                         <i class="fas fa-trash"></i> Hapus
+                        </button>  
+                        
+                        <!-- The Modal -->
+                          <div class="modal fade" id="myHapus<?= $idk; ?>">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
 
-                        <button class="btn btn-danger btn-sm" title="hapus barang">Hapus</button>
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                  <h4 class="modal-title">Modal Heading</h4>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <form action="deleteKeluar.php" method="post">
+                                <div class="modal-body">
+                                  Apakah yakin ingin mengahapus barang ini : <b><?= $nmbarang; ?></b> ?
+                                  <input type="hidden" name="idk" value="<?= $idk; ?>">
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                  <button type="submit" class="btn btn-primary btn-sm" data-bs-dismiss="modal" name="delKeluar">hapus</button>
+                                </div>
+                                </form>
+
+                              </div>
+                            </div>
+                          </div>
                         <!-- akhir hapus modal -->
                       </td>
                     </tr>
