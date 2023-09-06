@@ -48,6 +48,23 @@ include "../layouts/header.php";
               <!-- akhir button modal -->
 
               <div class="card-body">
+                <!-- alert/ notifikasi jika barang stock 0 atau habis -->
+                <?php 
+                $datastock = mysqli_query($koneksi, "SELECT  * FROM stock WHERE stock < 5");
+                // gunakan while sebagai looping dan perulangan data
+                while ($s = mysqli_fetch_array($datastock)) {
+                  // buat variabel baru untuk nama barangnya, variabel ambil datanya memalui database
+                  $barang = $s['namabarang'];
+                
+                ?>
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Info !</strong> Stock barang <b><?= $barang; ?></b> hampir habis !, segera lakukan pengorderan <?= $barang; ?>
+              </div>
+                <?php 
+                }
+                ?>
+              <!-- akhir notifikasi -->
                 <table id="datatablesSimple">
                   <thead>
                     <tr>
