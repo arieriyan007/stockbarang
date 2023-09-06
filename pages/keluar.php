@@ -153,6 +153,8 @@ include "../layouts/header.php";
                                 <div class="modal-body">
                                   Apakah yakin ingin mengahapus barang ini : <b><?= $nmbarang; ?></b> ?
                                   <input type="hidden" name="idk" value="<?= $idk; ?>">
+                                  <input type="hidden" name="qty" value="<?= $qty; ?>">
+                                    <input type="hidden" name="idb" value="<?= $idb; ?>">
                                 </div>
 
                                 <!-- Modal footer -->
