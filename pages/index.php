@@ -15,6 +15,12 @@ include "../layouts/header.php";
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myStock">
               <i class="fas fa-plus"></i> Stock Baru
             </button>
+
+             <!-- button export/report --> 
+             <a href="export.php" class="btn btn-success" target="_blank" title="export laporan stock">
+              <i class="fas fa-print"></i> Export data
+             </a>
+              <!-- akhir button export -->
               </div>
 
               <!-- The Modal -->
@@ -47,6 +53,8 @@ include "../layouts/header.php";
             </div>
               <!-- akhir button modal -->
 
+             
+
               <div class="card-body">
                 <!-- alert/ notifikasi jika barang stock 0 atau habis -->
                 <?php 
@@ -65,7 +73,7 @@ include "../layouts/header.php";
                 }
                 ?>
               <!-- akhir notifikasi -->
-                <table id="datatablesSimple">
+                <table id="datatablesSimple" class="table table-bordered" cellspacing="0">
                   <thead>
                     <tr>
                       <th>No</th>
