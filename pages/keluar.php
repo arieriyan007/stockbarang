@@ -15,6 +15,11 @@ include "../layouts/header.php";
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myKeluar">
                 <i class="fas fa-plus"></i> Stock keluar
               </button>
+              
+              <!-- button export -->
+                <a href="exportKeluar.php" class="btn btn-info" title="Export data barang keluar" target="_blank">
+                  <i class="fas fa-file"></i> Export Laporan</a>
+              <!-- akhir button export -->
 
               <!-- The Modal -->
               <div class="modal fade" id="myKeluar">
@@ -62,7 +67,7 @@ include "../layouts/header.php";
 
               </div>
               <div class="card-body">
-                <table id="datatablesSimple">
+                <table id="datatablesSimple" class="table table-bordered">
                   <thead>
                     <tr>
                       <th>No</th>
