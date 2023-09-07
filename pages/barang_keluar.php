@@ -37,7 +37,7 @@ if (isset($_POST['addKeluar'])) {
         // jika barang tidak cukup maka (else), disini kita menggabungkan bahasa menggunakna javascript sebagai alertnya
         echo "
         <script>
-            alert('Stock barang saat ini tidak mencukupi ! ');
+            alert('Maaf Stock barang saat ini tidak mencukupi ! ');
             window.location.href='keluar.php';
         </script>
         ";
