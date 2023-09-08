@@ -1,7 +1,7 @@
 <?php 
 include "../layouts/header.php";
 ?>
-
+<script type="text/javascript" src="../js/jquery.js"></script>
 <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
@@ -46,14 +46,12 @@ include "../layouts/header.php";
               </div>
             </div>
               <!-- akhir button modal -->
-              <div class="card-body">                
-              <!-- akhir notifikasi -->
-                <table id="datatablesSimple" class="table table-bordered" cellspacing="0">
+              <div class="card-body table-responsive">                
+                <table id="datatablesSimple" class="table table-bordered table-striped" cellspacing="0" border="1" width="600px">
                   <thead>
-                    <tr>
+                    <tr class="text-center">
                       <th>No</th>
                       <th>Email</th>
-                      <th>Password</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -70,44 +68,65 @@ include "../layouts/header.php";
                     $pwd = $l['password'];
                   ?>
 
-                    <tr class="d-flex justify-content-center text-center">
+                    <tr>
                       <td><?= $no++; ?></td>
                       <td><?= $email; ?></td>
-                      <td><?= $pwd; ?></td>
                       <td>
-                        <!-- hidden untuk id barang -->
-                        <input type="hidden" name="idbarang" value="<?= $idb; ?>">
+                        <!-- hidden untuk id User -->
+                        <input type="hidden" name="iduser" value="<?= $idu; ?>">
 
                         <!-- membuat button edit dengan modal boostrap 5 -->
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit<?= $idb; ?>" title="Edit barang">
-                          <i class="fas fa-edit"></i> Edit
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit<?= $idu; ?>" title="Edit user">
+                          <i class="fas fa-user-edit"></i> Edit
                         </button>
 
                         <!-- Edit Modal  -->
-                        <div class="modal fade" id="edit<?= $idb; ?>">
+                        <div class="modal fade" id="edit<?= $idu; ?>">
                           <div class="modal-dialog">
                             <div class="modal-content">
 
                               <!-- Edit Header -->
                               <div class="modal-header">
-                                <h4 class="modal-title">Edit Stock</h4> <br>
+                                <h4 class="modal-title">Edit User</h4> <br>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                               </div>
                               
                               <!-- Edit body -->
-                              <form action="editstock.php" method="post">
+                              <form action="editUser.php" method="post">
                                 <div class="modal-body">
-                                    <b><span class="text-muted d-flex justify-content-center"> Edit stock hanya bisa dirubah nama barang dan deskripsi saja</span></b>
-                                <input type="text" name="nbarang" value="<?= $nmbarang; ?>" class="form-control my-2" autofocus>
-                                <input type="text" name="deskripsi" value="<?= $deskripsi; ?>" class="form-control my-2" required>
-                                <input type="number" name="stock" class="form-control" value="<?= $stock; ?>" required disabled>
-                                <!-- lakukan parsing sebagai tanda pengeal di idbarang -->
-                                <input type="hidden" name="idb" value="<?= $idb; ?>">
-                              </div>
-
+                                    <!-- lakukan parsing sebagai tanda pengenal di iduser -->
+                                    <input type="hidden" name="idu" value="<?= $idu; ?>">
+                                <input type="email" name="email" value="<?= $email; ?>" class="form-control my-2" autofocus>
+                                <input type="password" name="inipwd" id="pwdKlik" value="<?= $pwd; ?>" class="form-password form-control">
+                                <input type="checkbox" class="form-checkbox"> show password
+                                <!-- membuat script untuk cekbox ada 2 cara menggunakan javascript atau menggunakan jquery-->
+                                <!-- dibawah ini menggunakan javascript -->
+                                <!-- <script>
+                                    function myFunction() {
+                                        var x = document.getElementById("pwdKlik");
+                                        if (x.type === "password") {
+                                            x.type = "text";
+                                        } else {
+                                            x.type = "password";
+                                        }
+                                    }
+                                </script> -->
+                                <!-- sedangkan ini menggunakan jquery -->
+                                <script type="text/javascript">
+                                    $(document).ready(function(){		
+                                        $('.form-checkbox').click(function(){
+                                            if($(this).is(':checked')){
+                                                $('.form-password').attr('type','text');
+                                            }else{
+                                                $('.form-password').attr('type','password');
+                                            }
+                                        });
+                                    });
+                                </script>
+                                </div>
                               <!-- Edit footer -->
                               <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" name="updateStock">Update</button>
+                                <button type="submit" class="btn btn-primary" name="updateUser">Update</button>
                               </div>
                               </form>
 
@@ -118,7 +137,7 @@ include "../layouts/header.php";
 
                         <!-- button hapus -->
                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete<?= $idb; ?>" title="Delete barang">
-                          <i class="fas fa-trash"></i> Delete
+                          <i class="fas fa-user-slash"></i> Delete
                         </button>
 
                         <!-- Delete Modal  -->
