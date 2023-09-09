@@ -33,8 +33,21 @@ include "../layouts/header.php";
                   <form action="tambahuser.php" method="post">
                   <div class="modal-body">
                     <input type="email" name="email" placeholder="email@gmail.com" class="form-control my-2" autofocus required>
-                    <input type="password" name="pwd" placeholder="Input Password" class="form-control my-2" required>
+                    <input type="password" name="pwd" id="pwd1" placeholder="Input Password" class="form-control my-2" required>
+                    <input type="checkbox" class="form-checkbox" onclick="myFunction()"> show password
                   </div>
+
+                  <!-- membuat javascript sebagai liat password  -->
+                  <script>
+                    function myFunction() {
+                      var x = document.getElementById("pwd1");
+                      if (x.type === "password") {
+                        x.type = "text";
+                      } else {
+                        x.type = "password";
+                      }
+                    }
+                  </script>
 
                   <!-- Modal footer -->
                   <div class="modal-footer">
