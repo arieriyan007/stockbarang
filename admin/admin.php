@@ -123,6 +123,7 @@ include "../layouts/header.php";
                                         });
                                     });
                                 </script>
+                                <!-- akhir script untuk melihat/show password -->
                                 </div>
                               <!-- Edit footer -->
                               <div class="modal-footer">
@@ -136,32 +137,31 @@ include "../layouts/header.php";
                         <!-- akhir edit -->
 
                         <!-- button hapus -->
-                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete<?= $idb; ?>" title="Delete barang">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete<?= $idu; ?>" title="Delete user">
                           <i class="fas fa-user-slash"></i> Delete
                         </button>
 
                         <!-- Delete Modal  -->
-                        <div class="modal fade" id="delete<?= $idb; ?>">
+                        <div class="modal fade" id="delete<?= $idu; ?>">
                           <div class="modal-dialog">
                             <div class="modal-content">
 
                               <!-- Delete Header -->
                               <div class="modal-header">
-                                <h4 class="modal-title">Hapus stock</h4> <br>
+                                <h4 class="modal-title">Hapus User</h4> <br>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                               </div>
                               
                               <!-- Delete body -->
-                              <form action="deleteStock.php" method="post">
+                              <form action="deleteUser.php" method="post">
                                 <div class="modal-body">
-                                  <h4 class="modal-title">Apakah yakin ingin mengapus <i><?= $nmbarang; ?></i> ini ?</h4>
-                                  <!-- passing juga agar id barang saat di delete bisa dikenali -->
-                                  <input type="hidden" name="idb" value="<?= $idb; ?>">
+                                  <h5 class="modal-title">Apakah yakin ingin mengapus <i><?= $email; ?></i> ini ?</h5>
+                                  <input type="hidden" name="idu" value="<?= $idu; ?>">
                               </div> 
 
                               <!-- Delete footer -->
                               <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" name="deleteStock">Delete</button>
+                                <button type="submit" class="btn btn-primary" name="deleteUser">Delete</button>
                               </div>
                               </form>
 
