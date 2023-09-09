@@ -53,9 +53,40 @@ include "../layouts/header.php";
             </div>
               <!-- akhir button modal -->
 
-             
-
-              <div class="card-body">
+              <div class="card-body">  
+              
+              <!-- notifikasi update dan dan delete -->
+              <?php 
+              if (isset($_GET['pesan'])) {
+                if ($_GET['pesan']=="berhasil_ditambahkan") {
+                  echo "<div class='alert alert-info alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Info !</strong> Stock baru telah ditambahkan.
+                </div>";
+                } elseif ($_GET['pesan']=="data_gagal") {
+                  echo "<div class='alert alert-danger alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>warning !</strong> Stock baru gagal ditambah.
+                </div>";
+                } elseif ($_GET['pesan']=="berhasilUpdate") {
+                  echo "<div class='alert alert-success alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Info !</strong> Data barang berhasil dirubah/edit.
+                </div>";
+                } elseif ($_GET['pesan']=="gagalUpdate") {
+                  echo "<div class='alert alert-danger alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Warning !</strong> Data barang gagal diupdate.
+                </div>";
+                } elseif ($_GET['pesan']=="dihapus") {
+                  echo "<div class='alert alert-warning alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Warning !</strong> Data barang berhasil dihapus.
+                </div>";
+                }
+              }
+              ?>
+              <!-- akhir notifikasi udpdate -->
                 <!-- alert/ notifikasi jika barang stock 0 atau habis -->
                 <?php 
                 $datastock = mysqli_query($koneksi, "SELECT  * FROM stock WHERE stock < 5");
