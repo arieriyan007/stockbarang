@@ -9,6 +9,42 @@ include "../layouts/header.php";
             <ol class="breadcrumb mb-4">
               <marquee behavior="" direction=""><li class="breadcrumb-item active">Dashboard data akses akun</li></marquee>
             </ol>
+
+            <!-- notifikasi/alert -->
+            <div class="row my-2">
+              <?php 
+              if (isset($_GET['pesan'])) {
+                if ($_GET['pesan']=="berhasilmenambahkanuser") {
+                  echo "<div class='alert alert-info alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Info !</strong> Berhasil menambahkan user baru
+                </div>";
+                } elseif ($_GET['pesan']=="gagalmenambahkanuser") {
+                  echo "<div class='alert alert-danger alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Info !</strong> Gagal menambahkan user baru
+                </div>";
+                } elseif ($_GET['pesan']=="berhasilupdateuser") {
+                  echo "<div class='alert alert-success alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Info !</strong> Berhasil merubah data user
+                </div>";
+              } elseif ($_GET['pesan']=="gagalupdateuser") {
+                  echo "<div class='alert alert-warning alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Info !</strong> Gagal merubah data user
+                </div>";
+              } elseif ($_GET['pesan']=="berhasilhapususer") {
+                  echo "<div class='alert alert-warning alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Info !</strong> Berhasil menghapus data user
+                </div>";
+              }
+            }
+              ?>
+            </div>
+            <!-- akhir notifikasi -->
+
             <!-- table -->
             <div class="card mb-4">
               <!-- membuat button modal bootstrap 5 -->
