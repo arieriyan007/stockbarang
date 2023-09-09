@@ -10,7 +10,7 @@ include "../layouts/header.php";
               <marquee behavior="" direction=""><li class="breadcrumb-item active">Dashboard data akses akun</li></marquee>
             </ol>
 
-            <!-- notifikasi/alert -->
+            <!-- notifikasi/alert pesan -->
             <div class="row my-2">
               <?php 
               if (isset($_GET['pesan'])) {
