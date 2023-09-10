@@ -41,6 +41,7 @@ include "../layouts/header.php";
                             while ($b = mysqli_fetch_array($db_barang)) {
                               $nmbarang = $b['namabarang'];
                               $idbr = $b['idbarang'];
+
                             ?>
                             <option value="<?= $idbr; ?>"><?= $nmbarang; ?></option>
 
@@ -66,10 +67,11 @@ include "../layouts/header.php";
                 <!-- akhir barang masuk -->
               </div>
               <div class="card-body">
-                <table id="datatablesSimple" class="table table-bordered">
+                <table id="datatablesSimple" class="table table-bordered table-hover" border="1">
                   <thead>
                     <tr>
                       <th>No</th>
+                      <th>Gambar</th>
                       <th>Nama Barang</th>
                       <th>Tanggal</th>
                       <th>Qty</th>
@@ -91,10 +93,21 @@ include "../layouts/header.php";
                       $qty = $dm['qty'];
                       $tanggal = $dm['tanggal'];
                       $ket = $dm['keterangan'];
+
+                      // cek ada gambar atau tidak
+                      $gambar = $dm['image']; //ambil gambar
+                      if ($gambar==null) {
+                        // jika tidak ada gambar
+                        $img = 'No Gambar';
+                      } else {
+                        // jika ada gambar
+                        $img = '<img src="../assets/img/'.$gambar.'" class="zoomable">'; //zoomable disini saya membuat costume css dibagian atas
+                      }
                       
                       ?>
                     <tr>
-                      <td><?= $no++?></td>
+                      <td style="text-align: center;"><?= $no++?></td>
+                      <td><?= $img; ?></td>
                       <td><?= $nmbarang; ?></td>
                       <td><?= $tanggal; ?></td>
                       <td><?= $qty; ?></td>

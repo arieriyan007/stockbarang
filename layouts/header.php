@@ -32,6 +32,17 @@ include "../cek.php";
       crossorigin="anonymous"
     ></script>
   </head>
+
+      <style>
+    .zoomable {
+      width: 100px;
+    }
+    .zoomable:hover {
+      transform: scale(2);
+      transition: 0.8s ease;
+    }
+    </style>
+
   <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
       <!-- Navbar Brand-->

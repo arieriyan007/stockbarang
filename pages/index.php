@@ -35,11 +35,15 @@ include "../layouts/header.php";
                   </div>
 
                   <!-- Modal body -->
-                  <form action="tambahstock.php" method="post">
+                  <!-- membuat upload gambar/data bisa ditambahkan enctype="multipart/form-data" -->
+                  <form action="tambahstock.php" method="post" enctype="multipart/form-data">
                   <div class="modal-body">
                     <input type="text" name="nbarang" placeholder="nama barang" class="form-control my-2" autofocus required>
                     <input type="text" name="deskripsi" placeholder="Deskripsi barang" class="form-control my-2" required>
                     <input type="number" name="stock" class="form-control" placeholder="Stock" required>
+                    <input type="text" name="satuan" class="form-control my-2" placeholder="Satuan" required>
+                    <input type="file" name="file" class="form-control" aria-label="Upload gambar" required>
+                    <div class="invalid-feedback">silahkan upload gambar</div>
                   </div>
 
                   <!-- Modal footer -->
@@ -104,12 +108,14 @@ include "../layouts/header.php";
                 }
                 ?>
               <!-- akhir notifikasi -->
-                <table id="datatablesSimple" class="table table-bordered" cellspacing="0">
+                <table id="datatablesSimple" class="table table-bordered table-striped table-hover" border="1" cellspacing="0">
                   <thead>
                     <tr>
                       <th>No</th>
+                      <th>Gambar</th>
                       <th>Nama barang</th>
                       <th>Stock</th>
+                      <th>Satuan</th>
                       <th>Dekripsi</th>
                       <th>Aksi</th>
                     </tr>
@@ -126,12 +132,25 @@ include "../layouts/header.php";
                     $nmbarang = $s['namabarang'];
                     $stock = $s['stock'];
                     $deskripsi = $s['deskripsi'];
+                    $satuan = $s['satuan'];
+
+                    // cek ada gambar atau tidak
+                    $gambar = $s['image']; //ambil gambar
+                    if ($gambar==null) {
+                      // jika tidak ada gambar
+                      $img = 'No Gambar';
+                    } else {
+                      // jika ada gambar
+                      $img = '<img src="../assets/img/'.$gambar.'" class="zoomable">'; //zoomable disini saya membuat costume css dibagian header.php
+                    }
                   ?>
 
-                    <tr class="d-flex justify-content-center text-center">
+                    <tr style="text-align:center"> 
                       <td><?= $no++; ?></td>
+                      <td><?= $img; ?></td>
                       <td><?= $nmbarang; ?></td>
                       <td><?= $stock; ?></td>
+                      <td><?= $satuan; ?></td>
                       <td><?= $deskripsi; ?></td>
                       <td>
                         <!-- hidden untuk id barang -->
@@ -154,12 +173,16 @@ include "../layouts/header.php";
                               </div>
                               
                               <!-- Edit body -->
-                              <form action="editstock.php" method="post">
+                              <!-- dibagian edit jangan lupa juga masukkan enctype="multipart/form-data" -->
+                              <form action="editstock.php" method="post" enctype="multipart/form-data">
                                 <div class="modal-body">
                                     <b><span class="text-muted d-flex justify-content-center"> Edit stock hanya bisa dirubah nama barang dan deskripsi saja</span></b>
                                 <input type="text" name="nbarang" value="<?= $nmbarang; ?>" class="form-control my-2" autofocus>
                                 <input type="text" name="deskripsi" value="<?= $deskripsi; ?>" class="form-control my-2" required>
                                 <input type="number" name="stock" class="form-control" value="<?= $stock; ?>" required disabled>
+                                <input type="text" name="satuan" class="form-control my-2" value="<?= $satuan; ?>">
+                                <input type="file" name="file" id="gambar" class="form-control">
+                                <div class="invalid-feedback">silahkan upload gambar !</div>
                                 <!-- lakukan parsing sebagai tanda pengeal di idbarang -->
                                 <input type="hidden" name="idb" value="<?= $idb; ?>">
                               </div>
@@ -212,7 +235,7 @@ include "../layouts/header.php";
                       </td> 
                     </tr>
                   
-                    <?php 
+                    <?php
                   }
                     ?>
                     <!-- akhir tampilan database stock -->

@@ -67,10 +67,11 @@ include "../layouts/header.php";
 
               </div>
               <div class="card-body">
-                <table id="datatablesSimple" class="table table-bordered">
+                <table id="datatablesSimple" class="table table-bordered table-hover" border="1">
                   <thead>
                     <tr>
                       <th>No</th>
+                      <th>Gambar</th>
                       <th>Nama Barang</th>
                       <th>Qty</th>
                       <th>Tanggal</th>
@@ -91,10 +92,21 @@ include "../layouts/header.php";
                       $qty = $dk['qty'];
                       $tanggal = $dk['tanggal'];
                       $penerima = $dk['penerima'];
+
+                      // cek ada gambar atau tidak
+                      $gambar = $dk['image']; //ambil gambar
+                      if ($gambar==null) {
+                        // jika tidak ada gambar
+                        $img = 'No Gambar';
+                      } else {
+                        // jika ada gambar
+                        $img = '<img src="../assets/img/'.$gambar.'" class="zoomable">'; //zoomable disini saya membuat costume css dibagian header.php
+                      }
                     
                     ?>
                     <tr>
                       <td><?= $no++; ?></td>
+                      <td><?= $img; ?></td>
                       <td><?= $nmbarang; ?></td>
                       <td><?= $qty; ?></td>
                       <td><?= $tanggal; ?></td>
