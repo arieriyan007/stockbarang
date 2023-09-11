@@ -67,6 +67,43 @@ include "../layouts/header.php";
                 <!-- akhir barang masuk -->
               </div>
               <div class="card-body">
+                <!-- notifikasi/alert  -->
+                <?php 
+                if (isset($_GET['pesan'])) {
+                  if ($_GET['pesan']=="berhasil") {
+                    echo "<div class='alert alert-info alert-dismissible'>
+                    <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                    <strong>Info !</strong> Barang masuk telah ditambahkan.
+                  </div>";
+                  } elseif ($_GET['pesan']=="gagal") {
+                    echo "<div class='alert alert-danger alert-dismissible'>
+                    <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                    <strong>Warning !</strong> Barang masuk gagal ditambahkan.
+                  </div>";
+                  } elseif ($_GET['pesan']=="datadihapus") {
+                    echo "<div class='alert alert-warning alert-dismissible'>
+                    <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                    <strong>Info !</strong> Barang masuk telah dihapus !
+                  </div>";
+                  } elseif ($_GET['pesan']=="gagaldihapus") {
+                    echo "<div class='alert alert-danger alert-dismissible'>
+                    <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                    <strong>warning !</strong> Barang masuk gagal dihapus !.
+                  </div>";
+                  } elseif ($_GET['pesan']=="berhasilupdate") {
+                    echo "<div class='alert alert-info alert-dismissible'>
+                    <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                    <strong>Info !</strong> Barang masuk berhasil diedit.
+                  </div>";
+                  } elseif ($_GET['pesan']=="gagalupdate") {
+                    echo "<div class='alert alert-warning alert-dismissible'>
+                    <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                    <strong>warning !</strong> Barang masuk gagal diedit.
+                  </div>";
+                  }
+                }
+                ?>
+                <!-- akhir notifikasi -->
                 <table id="datatablesSimple" class="table table-bordered table-hover" border="1">
                   <thead>
                     <tr>
