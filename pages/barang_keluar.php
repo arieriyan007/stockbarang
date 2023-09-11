@@ -30,7 +30,7 @@ if (isset($_POST['addKeluar'])) {
         if ($datastocksekarang&&$updatestock) {
             header("location:keluar.php?pesan=berhasil");
         } else {
-            header("location:keluar.php?pesan=gagalupdate");
+            header("location:keluar.php?pesan=gagakeluar");
         }
     
     } else {
