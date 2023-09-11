@@ -8,7 +8,7 @@ if (isset($_POST['deleteStock'])) {
     $gambar = mysqli_query($koneksi, "SELECT * FROM stock WHERE idbarang='$idb'"); //masuk ke database
     $get = mysqli_fetch_array($gambar); 
     $img = '../assets/img/'.$get['image']; //ambil gambarnya
-    // untuk menghapus gambrnya bisa menggunakan unlink
+    // untuk menghapus gambarnya bisa menggunakan unlink
     unlink($img);
 
     // proses delete didatabase
