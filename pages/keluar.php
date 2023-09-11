@@ -74,6 +74,7 @@ include "../layouts/header.php";
                       <th>Gambar</th>
                       <th>Nama Barang</th>
                       <th>Qty</th>
+                      <th>Satuan</th>
                       <th>Tanggal</th>
                       <th>Keterangan</th>
                       <th>Aksi</th>
@@ -90,6 +91,7 @@ include "../layouts/header.php";
                       $idb = $dk['idbarang'];
                       $nmbarang = $dk['namabarang'];
                       $qty = $dk['qty'];
+                      $satuan = $dk['satuan'];
                       $tanggal = $dk['tanggal'];
                       $penerima = $dk['penerima'];
 
@@ -109,6 +111,7 @@ include "../layouts/header.php";
                       <td><?= $img; ?></td>
                       <td><?= $nmbarang; ?></td>
                       <td><?= $qty; ?></td>
+                      <td><?= $satuan; ?></td>
                       <td><?= $tanggal; ?></td>
                       <td><?= $penerima; ?></td>
                       <td>

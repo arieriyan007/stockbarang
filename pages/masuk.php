@@ -75,6 +75,7 @@ include "../layouts/header.php";
                       <th>Nama Barang</th>
                       <th>Tanggal</th>
                       <th>Qty</th>
+                      <th>Satuan</th>
                       <th>Keterangan</th>
                       <th>Aksi</th>
                     </tr>
@@ -91,6 +92,7 @@ include "../layouts/header.php";
                       $idb = $dm['idbarang'];
                       $nmbarang = $dm['namabarang'];
                       $qty = $dm['qty'];
+                      $satuan = $dm['satuan'];
                       $tanggal = $dm['tanggal'];
                       $ket = $dm['keterangan'];
 
@@ -111,6 +113,7 @@ include "../layouts/header.php";
                       <td><?= $nmbarang; ?></td>
                       <td><?= $tanggal; ?></td>
                       <td><?= $qty; ?></td>
+                      <td><?= $satuan; ?></td>
                       <td><?= $ket; ?></td>
                       <td>
                         <!-- button edit -->

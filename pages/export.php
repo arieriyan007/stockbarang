@@ -27,8 +27,10 @@ include "../cek.php";
                   <thead>
                     <tr>
                       <th>No</th>
+                      <th>Gambar</th>
                       <th>Nama barang</th>
                       <th>Stock</th>
+                      <th>Satuan</th>
                       <th>Dekripsi</th>
                     </tr>
                   </thead>
@@ -44,12 +46,24 @@ include "../cek.php";
                     $nmbarang = $s['namabarang'];
                     $stock = $s['stock'];
                     $deskripsi = $s['deskripsi'];
+                    $satuan = $s['satuan'];
+                    // menampilkan gambar
+                    $gambar = $s['image'];
+                    if ($gambar==null) {
+                      // jika tidak ada gambar
+                      $img = 'No Gambar';
+                    } else {
+                      // jika ada gambar
+                      $img = '<img src="../assets/img/'.$gambar.'" class="zoomable">'; //zoomable disini saya membuat costume css dibagian header.php
+                    }
                   ?>
 
                     <tr>
                       <td class="text-center"><?= $no++; ?></td>
+                      <td><?= $img; ?></td>
                       <td><?= $nmbarang; ?></td>
                       <td><?= $stock; ?></td>
+                      <td><?= $satuan; ?></td>
                       <td><?= $deskripsi; ?></td>
                       
                     </tr>
