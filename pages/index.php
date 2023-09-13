@@ -148,7 +148,7 @@ include "../layouts/header.php";
                     <tr style="text-align:center"> 
                       <td><?= $no++; ?></td>
                       <td><?= $img; ?></td>
-                      <td><?= $nmbarang; ?></td>
+                      <td><a style="text-decoration: none; color:black" title="klik untuk detail barang" href="detail.php?id=<?= $idb; ?>"><?= $nmbarang; ?></a></td>
                       <td><?= $stock; ?></td>
                       <td><?= $satuan; ?></td>
                       <td><?= $deskripsi; ?></td>
