@@ -49,13 +49,13 @@ include "../cek.php";
    <ul class="sidebar-menu do-nicescrol">
       <li class="sidebar-header">Menu</li>
       <li>
-        <a href="">
+        <a href="../inventory/inventory.php">
           <i class="zmdi zmdi-labels"></i> <span>Inventory ruangan</span>
         </a>
       </li>
 
       <li>
-        <a href="../pages/index.php">
+        <a href="#">
           <i class="zmdi zmdi-storage"></i> <span>Inventory IT</span>
         </a>
       </li>
@@ -144,26 +144,74 @@ include "../cek.php";
                      <th>Aksi</th>
                    </tr>
                    </thead>
-                   <tbody><tr>
-                    <td>Iphone 5</td>
+                   <tbody>
+                    <!-- pagination atau membatasi jumlah halaman -->
+                    <?php 
+                    $batas = 10;
+                    $halaman = isset($_GET['halaman'])?(int)$_GET['halaman'] : 1;
+                    $halaman_awal = ($halaman>1) ? ($halaman * $batas) - $batas : 0;
+
+                    $previous = $halaman - 1;
+                    $next = $halaman + 1;
+
+                    //tarik data di database
+                    $data = mysqli_query($koneksi, "SELECT * FROM inventory");
+                    $jumlah_data = mysqli_num_rows($data);
+                    $total_halaman = ceil($jumlah_data / $batas);
+
+                    // sekarang tinggal kita limit saja data yg ada di databasenya agar sesuai dengan batas per 1 halaman 10 baris
+                    $data_inv = mysqli_query($koneksi, "SELECT * FROM inventory limit $halaman_awal, $batas");
+                    $no = $halaman_awal+1;
+                    while($d = mysqli_fetch_array($data_inv)){
+
+                    ?>
+                    <tr>
+                    <td><?= $no++; ?></td>
                     <td><img src="https://via.placeholder.com/110x110" class="product-img" alt="product img"></td>
-                    <td>#9405822</td>
-                    <td>$ 1250.00</td>
-                    <td>03 Aug 2017</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
 					<td>
+            
                     </td>
                     <td>
                         <button class="btn btn-primary btn-sm"> Edit</button>
                         <button class="btn btn-danger btn-sm"> Hapus</button>
                     </td>
                    </tr>
+                   <?php 
+                    }
+                   ?>
                  </tbody>
                 </table>
                </div>
 	   </div>
 	 </div>
-	</div><!--End Row-->
+	</div>
+  <!--End Row-->
 
+  <!-- pagination -->
+  <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-end">
+    <li class="page-item">
+      <a class="page-link" href="<?php if ($halaman > 1){echo "href='?halaman=$previous'" ;} {
+      } ?>" tabindex="-1">Previous</a>
+    </li>
+    <?php 
+				for($x=1;$x<=$total_halaman;$x++){
+					?> 
+					<li class="page-item"><a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?></a></li>
+					<?php
+				}
+				?>
+      <!-- <a class="page-link" href="#">Next</a> -->
+    </li>
+    <li class="page-item">
+      <a  class="page-link" <?php if($halaman < $total_halaman) { echo "href='?halaman=$next'"; } ?>>Next</a>
+    </li>
+  </ul>
+</nav>
+  <!-- akhir pagination -->
       <!--End Dashboard Content-->
 	  
 	<!--start overlay-->
