@@ -8,7 +8,7 @@ include "../layouts/header.php";
             <ol class="breadcrumb mb-4">
               <marquee><li class="breadcrumb-item active">Informasi semua barang masuk</li></marquee>
             </ol>
-            
+
             <!-- table -->
             <div class="card mb-4">
               <div class="card-header">
@@ -64,8 +64,22 @@ include "../layouts/header.php";
                       </div>
                     </div>
                   </div>
-                <!-- akhir barang masuk -->
+                                   
+              <!-- akhir barang masuk -->
               </div>
+
+              <!-- membuat filter tanggal  -->
+               <div class="row mt-2">
+                  <div class="col-md-6">
+                  <b class="d-flex justify-content-center text-center mb-2">Filter tanggal mulai dan tanggal akhir</b>
+                    <form method="POST" class="d-flex form-inline" style="align-items: space-between;">
+                    &nbsp;&nbsp;&nbsp; <input type="date" name="tglMulai" class="form-control d-flex ml-3" title="Tanggal Mulai"> &nbsp;
+                      <input type="date" name="tglAkhir" class="form-control" title="Tanggal Akhir">
+                      &nbsp; <button name="filterTgl" type="submit" class="btn btn-info">Filter</button>
+                    </form>
+                  </div>
+                </div>
+                             
               <div class="card-body">
                 <!-- notifikasi/alert  -->
                 <?php 
@@ -104,7 +118,7 @@ include "../layouts/header.php";
                 }
                 ?>
                 <!-- akhir notifikasi -->
-                <table id="datatablesSimple" class="table table-bordered table-hover" border="1">
+                <table id="datatablesSimple" class="table table-bordered table-hover table-responsive" border="1">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -114,6 +128,7 @@ include "../layouts/header.php";
                       <th>Qty</th>
                       <th>Satuan</th>
                       <th>Keterangan</th>
+                      <th>User</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -121,12 +136,24 @@ include "../layouts/header.php";
                   <tbody>
                   <!-- menampilkan database dengan php -->
                     <?php 
+                    
+                    if (isset($_POST['filterTgl'])) {
+                        $mulai = $_POST['tglMulai'];
+                        $akhir = $_POST['tglAkhir'];
+                        // disini khusus untuk memfilter berdasarkan tanggal maka kita bisa tambahkan between dan DATE_ADD(variabel, INTERVAL 1 DAY), agar kehitung 1 hari akhirnya 
+                        $datamasuk = mysqli_query($koneksi, "SELECT * FROM masuk m, stock s, login l WHERE s.idbarang = m.idbarang AND m.iduser = l.iduser AND tanggal BETWEEN '$mulai' AND DATE_ADD('$akhir',INTERVAL 1 DAY) ORDER BY idmasuk DESC");
+                    } else {
+                      // jika tidak ada maka data dikembalikan secara berurutan
+                        $datamasuk = mysqli_query($koneksi, "SELECT * FROM masuk m, stock s, login l WHERE s.idbarang = m.idbarang AND m.iduser = l.iduser ORDER BY idmasuk DESC");
+                    }
+
                     $no = 1;
-                    $datamasuk = mysqli_query($koneksi, "SELECT * FROM masuk m, stock s WHERE s.idbarang = m.idbarang");
+                    $datamasuk = mysqli_query($koneksi, "SELECT * FROM masuk m, stock s, login l WHERE s.idbarang = m.idbarang AND m.iduser = l.iduser ORDER BY idmasuk DESC");
                     
                     while ($dm = mysqli_fetch_array($datamasuk)) {
                       $idm = $dm['idmasuk'];
                       $idb = $dm['idbarang'];
+                      $idu = $dm['email'];
                       $nmbarang = $dm['namabarang'];
                       $qty = $dm['qty'];
                       $satuan = $dm['satuan'];
@@ -152,6 +179,7 @@ include "../layouts/header.php";
                       <td><?= $qty; ?></td>
                       <td><?= $satuan; ?></td>
                       <td><?= $ket; ?></td>
+                      <td><?= $idu; ?></td>
                       <td>
                         <!-- button edit -->
                       <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit<?= $idm; ?>" title="Edit barang">

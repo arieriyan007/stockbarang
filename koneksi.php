@@ -5,7 +5,7 @@ session_start();
 //menghilangkan error dan report pada php 
 error_reporting(0);
 // membuat koneksi ke database
-$koneksi = mysqli_connect('localhost','root','','stockbarang');
+$koneksi = mysqli_connect('localhost','root','','stokbarang');
 
 // jika gagal koneksi
 if (mysqli_connect_errno()) {
