@@ -64,8 +64,20 @@ include "../layouts/header.php";
                 </div>
               </div>
               <!-- akhir botton modal -->
-
               </div>
+
+              <!-- membuat filter tanggal  -->
+              <div class="row mt-2">
+                  <div class="col-md-6">
+                  <b class="d-flex justify-content-center text-center mb-2">Filter tanggal mulai dan tanggal akhir</b>
+                    <form method="POST" class="d-flex form-inline" style="align-items: space-between;">
+                    &nbsp;&nbsp;&nbsp; <input type="date" name="tglMulai" class="form-control d-flex ml-3" title="Tanggal Mulai"> &nbsp;
+                      <input type="date" name="tglAkhir" class="form-control" title="Tanggal Akhir">
+                      &nbsp; <button name="filterTgl" type="submit" class="btn btn-info">Filter</button>
+                    </form>
+                  </div>
+                </div>
+
               <div class="card-body">
                 <!-- notifikasi/alert -->
                 <?php 
@@ -113,7 +125,8 @@ include "../layouts/header.php";
                       <th>Qty</th>
                       <th>Satuan</th>
                       <th>Tanggal</th>
-                      <th>Keterangan</th>
+                      <th>Penerima</th>
+                      <th>User</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -122,7 +135,22 @@ include "../layouts/header.php";
                     <!-- menampilkan data keluar di database -->
                     <?php 
                     $no = 1;
-                    $datakeluar = mysqli_query($koneksi,"SELECT * FROM keluar k, stock s WHERE s.idbarang=k.idbarang");
+                    if (isset($_POST['filterTgl'])) {
+                      $mulai = $_POST['tglMulai'];
+                      $akhir = $_POST['tglAkhir'];
+
+                      if ($mulai!=null || $akhir!=null) { //if disini berfungsi, jika filter tidak memilih tanggal maka tampilkan semua data masuk. baru lanjut skrip dibawah
+                        // disini khusus untuk memfilter berdasarkan tanggal maka kita bisa tambahkan between dan DATE_ADD(variabel, INTERVAL 1 DAY), agar kehitung 1 hari akhirnya 
+                        $datakeluar = mysqli_query($koneksi, "SELECT * FROM keluar k, stock s, login l WHERE s.idbarang = k.idbarang AND k.iduser = l.iduser AND tanggal BETWEEN '$mulai' AND DATE_ADD('$akhir',INTERVAL 1 DAY) ORDER BY idkeluar DESC");
+                      } else {
+                        // jika tidak ada maka data dikembalikan secara berurutan
+                      $datakeluar = mysqli_query($koneksi, "SELECT * FROM keluar k, stock s, login l WHERE s.idbarang = k.idbarang AND k.iduser = l.iduser ORDER BY idkeluar DESC");
+                      }
+                  } else {
+                    // jika tidak ada maka data dikembalikan secara berurutan
+                      $datakeluar = mysqli_query($koneksi, "SELECT * FROM keluar k, stock s, login l WHERE s.idbarang = k.idbarang AND k.iduser = l.iduser ORDER BY idkeluar DESC");
+                  }
+              
                     while ($dk = mysqli_fetch_array($datakeluar)) {
                       $idk = $dk['idkeluar'];
                       $idb = $dk['idbarang'];
@@ -131,6 +159,7 @@ include "../layouts/header.php";
                       $satuan = $dk['satuan'];
                       $tanggal = $dk['tanggal'];
                       $penerima = $dk['penerima'];
+                      $idu = $dk['email'];
 
                       // cek ada gambar atau tidak
                       $gambar = $dk['image']; //ambil gambar
@@ -151,6 +180,7 @@ include "../layouts/header.php";
                       <td><?= $satuan; ?></td>
                       <td><?= $tanggal; ?></td>
                       <td><?= $penerima; ?></td>
+                      <td><?= $idu; ?></td>
                       <td>
                         <!-- membuat button modal Edit -->
                         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#myEdit<?= $idk; ?>" title="Edit barang">

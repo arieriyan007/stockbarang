@@ -136,20 +136,24 @@ include "../layouts/header.php";
                   <tbody>
                   <!-- menampilkan database dengan php -->
                     <?php 
+                    $no = 1;
                     
                     if (isset($_POST['filterTgl'])) {
                         $mulai = $_POST['tglMulai'];
                         $akhir = $_POST['tglAkhir'];
-                        // disini khusus untuk memfilter berdasarkan tanggal maka kita bisa tambahkan between dan DATE_ADD(variabel, INTERVAL 1 DAY), agar kehitung 1 hari akhirnya 
-                        $datamasuk = mysqli_query($koneksi, "SELECT * FROM masuk m, stock s, login l WHERE s.idbarang = m.idbarang AND m.iduser = l.iduser AND tanggal BETWEEN '$mulai' AND DATE_ADD('$akhir',INTERVAL 1 DAY) ORDER BY idmasuk DESC");
+
+                        if ($mulai!=null || $akhir!=null) { //if disini berfungsi, jika filter tidak memilih tanggal maka tampilkan semua data masuk. baru lanjut skrip dibawah
+                          // disini khusus untuk memfilter berdasarkan tanggal maka kita bisa tambahkan between dan DATE_ADD(variabel, INTERVAL 1 DAY), agar kehitung 1 hari akhirnya 
+                          $datamasuk = mysqli_query($koneksi, "SELECT * FROM masuk m, stock s, login l WHERE s.idbarang = m.idbarang AND m.iduser = l.iduser AND tanggal BETWEEN '$mulai' AND DATE_ADD('$akhir',INTERVAL 1 DAY) ORDER BY idmasuk DESC");
+                        } else {
+                          // jika tidak ada maka data dikembalikan secara berurutan
+                        $datamasuk = mysqli_query($koneksi, "SELECT * FROM masuk m, stock s, login l WHERE s.idbarang = m.idbarang AND m.iduser = l.iduser ORDER BY idmasuk DESC");
+                        }
                     } else {
                       // jika tidak ada maka data dikembalikan secara berurutan
                         $datamasuk = mysqli_query($koneksi, "SELECT * FROM masuk m, stock s, login l WHERE s.idbarang = m.idbarang AND m.iduser = l.iduser ORDER BY idmasuk DESC");
                     }
 
-                    $no = 1;
-                    $datamasuk = mysqli_query($koneksi, "SELECT * FROM masuk m, stock s, login l WHERE s.idbarang = m.idbarang AND m.iduser = l.iduser ORDER BY idmasuk DESC");
-                    
                     while ($dm = mysqli_fetch_array($datamasuk)) {
                       $idm = $dm['idmasuk'];
                       $idb = $dm['idbarang'];
