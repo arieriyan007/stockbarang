@@ -1,301 +1,253 @@
 <?php 
-include "../koneksi.php";
-include "../cek.php";
+include "../layouts/header.php";
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-  <meta name="description" content=""/>
-  <meta name="author" content=""/>
-  <title>Inventory Ku</title>
-  <!-- loader-->
-  <link href="../asset/css/pace.min.css" rel="stylesheet"/>
-  <script src="../asset/js/pace.min.js"></script>
-  <!--favicon-->
-  <link rel="icon" href="../asset/images/favicon.ico" type="image/x-icon">
-  <!-- Vector CSS -->
-  <link href="../asset/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
-  <!-- simplebar CSS-->
-  <link href="../asset/plugins/simplebar/css/simplebar.css" rel="stylesheet"/>
-  <!-- Bootstrap core CSS-->
-  <link href="../asset/css/bootstrap.min.css" rel="stylesheet"/>
-  <!-- animate CSS-->
-  <link href="../asset/css/animate.css" rel="stylesheet" type="text/css"/>
-  <!-- Icons CSS-->
-  <link href="../asset/css/icons.css" rel="stylesheet" type="text/css"/>
-  <!-- Sidebar CSS-->
-  <link href="../asset/css/sidebar-menu.css" rel="stylesheet"/>
-  <!-- Custom Style-->
-  <link href="../asset/css/app-style.css" rel="stylesheet"/>
-  
-</head>
 
-<body class="bg-theme bg-theme1">
- 
-<!-- Start wrapper-->
- <div id="wrapper">
- 
-  <!--Start sidebar-wrapper-->
-   <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
-     <div class="brand-logo">
-      <a href="index.html">
-       <img src="../asset/images/logo-icon.png" class="logo-icon" alt="logo icon">
-       <h5 class="logo-text">Inventory IT</h5>
-     </a>
-   </div>
-   <ul class="sidebar-menu do-nicescrol">
-      <li class="sidebar-header">Menu</li>
-      <li>
-        <a href="../inventory/inventory.php">
-          <i class="zmdi zmdi-labels"></i> <span>Inventory ruangan</span>
-        </a>
-      </li>
+<div id="layoutSidenav_content">
+        <main>
+          <div class="container-fluid px-4">
+            <h1 class="mt-4">Stock Barang</h1>
+            <ol class="breadcrumb mb-4">
+              <marquee behavior="" direction=""><li class="breadcrumb-item active">Dashboard stock saat ini</li></marquee>
+            </ol>
+            <!-- table -->
+            <div class="card mb-4">
+              <!-- membuat button modal bootstrap 5 -->
+              <div class="card-header">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myStock">
+              <i class="fas fa-plus"></i> Stock Baru
+            </button>
 
-      <li>
-        <a href="#">
-          <i class="zmdi zmdi-storage"></i> <span>Inventory IT</span>
-        </a>
-      </li>
-
-      <li>
-        <a href="../pages/index.php">
-          <i class="zmdi zmdi-archive"></i> <span>Stock barang</span>
-        </a>
-      </li>
-      <li>
-        <a href="../logout.php">
-          <i class="zmdi zmdi-square-right"></i> <span>Logout</span>
-        </a>
-      </li>
-
-    </ul>
-   
-   </div>
-   <!--End sidebar-wrapper-->
-
-<!--Start topbar header-->
-<header class="topbar-nav">
- <nav class="navbar navbar-expand fixed-top">
-  <ul class="navbar-nav mr-auto align-items-center">
-    <li class="nav-item">
-      <a class="nav-link toggle-menu" href="javascript:void();">
-       <i class="icon-menu menu-icon"></i>
-     </a>
-    </li>
-    <li class="nav-item">
-      <form class="search-bar">
-        <input type="text" class="form-control" placeholder="Enter keywords">
-         <a href="javascript:void();"><i class="icon-magnifier"></i></a>
-      </form>
-    </li>
-  </ul>
-     
-  <ul class="navbar-nav align-items-center right-nav-link">
-    
-  </ul>
-</nav>
-</header>
-<!--End topbar header-->
-
-<div class="clearfix"></div>
-	
-  <div class="content-wrapper">
-    <div class="container-fluid">
-
-  <!--Start Dashboard Content-->
-
-	<div class="card mt-3">
-    <div class="card-content">
-        <div class="row row-group m-0">
-            
-        </div>
-    </div>
- </div>  
-	
-	<div class="row">
-	 <div class="col-12 col-lg-12">
-	   <div class="card">
-	     <div class="card-header">Inventory ruangan IT
-		  <div class="card-action">
-             <div class="dropdown">
-             <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
-              <i class="icon-options"></i>
+             <!-- button export/report --> 
+             <a href="export.php" class="btn btn-success" target="_blank" title="export laporan stock">
+              <i class="fas fa-print"></i> Export data
              </a>
-              <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#">Tambah barang</a>
-              
-               </div>
+              <!-- akhir button export -->
               </div>
-             </div>
-		 </div>
-	       <div class="table-responsive">
-                 <table class="table align-items-center table-flush table-borderless">
+
+              <!-- The Modal -->
+            <div class="modal fade" id="myStock">
+              <div class="modal-dialog">
+                <div class="modal-content">
+
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title">Stock Baru</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+
+                  <!-- Modal body -->
+                  <!-- membuat upload gambar/data bisa ditambahkan enctype="multipart/form-data" -->
+                  <form action="tambahstock.php" method="post" enctype="multipart/form-data">
+                  <div class="modal-body">
+                    <input type="text" name="nbarang" placeholder="nama barang" class="form-control my-2" autofocus required>
+                    <input type="text" name="deskripsi" placeholder="Deskripsi barang" class="form-control my-2" required>
+                    <input type="number" name="stock" class="form-control" placeholder="Stock" required>
+                    <input type="text" name="satuan" class="form-control my-2" placeholder="Satuan" required>
+                    <input type="file" name="file" class="form-control" aria-label="Upload gambar" required>
+                    <div class="invalid-feedback">silahkan upload gambar</div>
+                  </div>
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" name="addbarang">Save</button>
+                  </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+              <!-- akhir button modal -->
+
+              <div class="card-body">  
+              
+              <!-- notifikasi update dan dan delete -->
+              <?php 
+              if (isset($_GET['pesan'])) {
+                if ($_GET['pesan']=="berhasil_ditambahkan") {
+                  echo "<div class='alert alert-info alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Info !</strong> Stock baru telah ditambahkan.
+                </div>";
+                } elseif ($_GET['pesan']=="data_gagal") {
+                  echo "<div class='alert alert-danger alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>warning !</strong> Stock baru gagal ditambah.
+                </div>";
+                } elseif ($_GET['pesan']=="berhasilUpdate") {
+                  echo "<div class='alert alert-success alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Info !</strong> Data barang berhasil dirubah/edit.
+                </div>";
+                } elseif ($_GET['pesan']=="gagalUpdate") {
+                  echo "<div class='alert alert-danger alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Warning !</strong> Data barang gagal diupdate.
+                </div>";
+                } elseif ($_GET['pesan']=="dihapus") {
+                  echo "<div class='alert alert-warning alert-dismissible'>
+                  <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                  <strong>Warning !</strong> Data barang berhasil dihapus.
+                </div>";
+                }
+              }
+              ?>
+              <!-- akhir notifikasi udpdate -->
+                <!-- alert/ notifikasi jika barang stock 0 atau habis -->
+                <?php 
+                $datastock = mysqli_query($koneksi, "SELECT  * FROM stock WHERE stock < 5");
+                // gunakan while sebagai looping dan perulangan data
+                while ($s = mysqli_fetch_array($datastock)) {
+                  // buat variabel baru untuk nama barangnya, variabel ambil datanya memalui database
+                  $barang = $s['namabarang'];
+                
+                ?>
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Info !</strong> Stock barang <b><?= $barang; ?></b> hampir habis !, segera lakukan pengorderan <?= $barang; ?>
+              </div>
+                <?php 
+                }
+                ?>
+              <!-- akhir notifikasi -->
+                <table id="datatablesSimple" class="table table-bordered table-striped table-hover" border="1" cellspacing="0">
                   <thead>
-                   <tr>
-                     <th>No</th>
-                     <th>Gambar</th>
-                     <th>Kode barang</th>
-                     <th>Nama barang</th>
-                     <th>Tanggal</th>
-                     <th>Posisi</th>
-                     <th>Aksi</th>
-                   </tr>
-                   </thead>
-                   <tbody>
-                    <!-- pagination atau membatasi jumlah halaman -->
-                    <?php 
-                    $batas = 10;
-                    $halaman = isset($_GET['halaman'])?(int)$_GET['halaman'] : 1;
-                    $halaman_awal = ($halaman>1) ? ($halaman * $batas) - $batas : 0;
-
-                    $previous = $halaman - 1;
-                    $next = $halaman + 1;
-
-                    //tarik data di database
-                    $data = mysqli_query($koneksi, "SELECT * FROM inventory");
-                    $jumlah_data = mysqli_num_rows($data);
-                    $total_halaman = ceil($jumlah_data / $batas);
-
-                    // sekarang tinggal kita limit saja data yg ada di databasenya agar sesuai dengan batas per 1 halaman 10 baris
-                    $data_inv = mysqli_query($koneksi, "SELECT * FROM inventory limit $halaman_awal, $batas");
-                    $no = $halaman_awal+1;
-                    while($d = mysqli_fetch_array($data_inv)){
-
-                    ?>
                     <tr>
-                    <td><?= $no++; ?></td>
-                    <td><img src="https://via.placeholder.com/110x110" class="product-img" alt="product img"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-					<td>
-            
-                    </td>
-                    <td>
-                        <button class="btn btn-primary btn-sm"> Edit</button>
-                        <button class="btn btn-danger btn-sm"> Hapus</button>
-                    </td>
-                   </tr>
-                   <?php 
+                      <th>No</th>
+                      <th>Gambar</th>
+                      <th>Nama barang</th>
+                      <th>Stock</th>
+                      <th>Satuan</th>
+                      <th>Dekripsi</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+              
+                  <tbody>
+                  <!-- menampilkan isi dari database dengan php -->
+                  <?php 
+                  $no = 1;
+                  $datastock = mysqli_query($koneksi, "SELECT * FROM stock");
+
+                  while ($s = mysqli_fetch_array($datastock)) {
+                    $idb = $s['idbarang'];
+                    $nmbarang = $s['namabarang'];
+                    $stock = $s['stock'];
+                    $deskripsi = $s['deskripsi'];
+                    $satuan = $s['satuan'];
+
+                    // cek ada gambar atau tidak
+                    $gambar = $s['image']; //ambil gambar
+                    if ($gambar==null) {
+                      // jika tidak ada gambar
+                      $img = 'No Gambar';
+                    } else {
+                      // jika ada gambar
+                      $img = '<img src="../assets/img/'.$gambar.'" class="zoomable">'; //zoomable disini saya membuat costume css dibagian header.php
                     }
-                   ?>
-                 </tbody>
+                  ?>
+
+                    <tr style="text-align:center"> 
+                      <td><?= $no++; ?></td>
+                      <td><?= $img; ?></td>
+                      <td><a style="text-decoration: none; color:black" title="klik untuk detail barang" href="detail.php?id=<?= $idb; ?>"><?= $nmbarang; ?></a></td>
+                      <td><?= $stock; ?></td>
+                      <td><?= $satuan; ?></td>
+                      <td><?= $deskripsi; ?></td>
+                      <td>
+                        <!-- hidden untuk id barang -->
+                        <input type="hidden" name="idbarang" value="<?= $idb; ?>">
+
+                        <!-- membuat button edit dengan modal boostrap 5 -->
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit<?= $idb; ?>" title="Edit barang">
+                          <i class="fas fa-edit"></i> Edit
+                        </button>
+
+                        <!-- Edit Modal  -->
+                        <div class="modal fade" id="edit<?= $idb; ?>">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+
+                              <!-- Edit Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title">Edit Stock</h4> <br>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+                              
+                              <!-- Edit body -->
+                              <!-- dibagian edit jangan lupa juga masukkan enctype="multipart/form-data" -->
+                              <form action="editstock.php" method="post" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <b><span class="text-muted d-flex justify-content-center"> Edit stock hanya bisa dirubah nama barang dan deskripsi saja</span></b>
+                                <input type="text" name="nbarang" value="<?= $nmbarang; ?>" class="form-control my-2" autofocus>
+                                <input type="text" name="deskripsi" value="<?= $deskripsi; ?>" class="form-control my-2" required>
+                                <input type="number" name="stock" class="form-control" value="<?= $stock; ?>" required disabled>
+                                <input type="text" name="satuan" class="form-control my-2" value="<?= $satuan; ?>">
+                                <input type="file" name="file" id="gambar" class="form-control">
+                                <div class="invalid-feedback">silahkan upload gambar !</div>
+                                <!-- lakukan parsing sebagai tanda pengeal di idbarang -->
+                                <input type="hidden" name="idb" value="<?= $idb; ?>">
+                              </div>
+
+                              <!-- Edit footer -->
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" name="updateStock">Update</button>
+                              </div>
+                              </form>
+
+                            </div>
+                          </div>
+                        </div>
+                        <!-- akhir edit -->
+
+                        <!-- button hapus -->
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete<?= $idb; ?>" title="Delete barang">
+                          <i class="fas fa-trash"></i> Delete
+                        </button>
+
+                        <!-- Delete Modal  -->
+                        <div class="modal fade" id="delete<?= $idb; ?>">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+
+                              <!-- Delete Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title">Hapus stock</h4> <br>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+                              
+                              <!-- Delete body -->
+                              <form action="deleteStock.php" method="post">
+                                <div class="modal-body">
+                                  <h4 class="modal-title">Apakah yakin ingin mengapus <i><?= $nmbarang; ?></i> ini ?</h4>
+                                  <!-- passing juga agar id barang saat di delete bisa dikenali -->
+                                  <input type="hidden" name="idb" value="<?= $idb; ?>">
+                              </div> 
+
+                              <!-- Delete footer -->
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" name="deleteStock">Delete</button>
+                              </div>
+                              </form>
+
+                            </div>
+                          </div>
+                        </div>
+                        <!-- akhir hapus/delete -->
+                      </td> 
+                    </tr>
+                  
+                    <?php
+                  }
+                    ?>
+                    <!-- akhir tampilan database stock -->
+                  </tbody>
                 </table>
-               </div>
-	   </div>
-	 </div>
-	</div>
-  <!--End Row-->
+              </div>
+            </div>
+            <!-- end table -->
+          </div>
+        </main>
 
-  <!-- pagination -->
-  <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-end">
-    <li class="page-item">
-      <a class="page-link" href="<?php if ($halaman > 1){echo "href='?halaman=$previous'" ;} {
-      } ?>" tabindex="-1">Previous</a>
-    </li>
-    <?php 
-				for($x=1;$x<=$total_halaman;$x++){
-					?> 
-					<li class="page-item"><a class="page-link" href="?halaman=<?php echo $x ?>"><?php echo $x; ?></a></li>
-					<?php
-				}
-				?>
-      <!-- <a class="page-link" href="#">Next</a> -->
-    </li>
-    <li class="page-item">
-      <a  class="page-link" <?php if($halaman < $total_halaman) { echo "href='?halaman=$next'"; } ?>>Next</a>
-    </li>
-  </ul>
-</nav>
-  <!-- akhir pagination -->
-      <!--End Dashboard Content-->
-	  
-	<!--start overlay-->
-		  <div class="overlay toggle-menu"></div>
-		<!--end overlay-->
-		
-    </div>
-    <!-- End container-fluid-->
-    
-    </div><!--End content-wrapper-->
-   <!--Start Back To Top Button-->
-    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-    <!--End Back To Top Button-->
-	
-	<!--Start footer-->
-	<footer class="footer">
-      <div class="container">
-        <div class="text-center">
-          Support By Arieriyan IT RSMP
-        </div>
-      </div>
-    </footer>
-	<!--End footer-->
-	
-  <!--start color switcher-->
-   <div class="right-sidebar">
-    <div class="switcher-icon">
-      <i class="zmdi zmdi-settings zmdi-hc-spin"></i>
-    </div>
-    <div class="right-sidebar-content">
-
-      <p class="mb-0">Gaussion Texture</p>
-      <hr>
-      
-      <ul class="switcher">
-        <li id="theme1"></li>
-        <li id="theme2"></li>
-        <li id="theme3"></li>
-        <li id="theme4"></li>
-        <li id="theme5"></li>
-        <li id="theme6"></li>
-      </ul>
-
-      <p class="mb-0">Gradient Background</p>
-      <hr>
-      
-      <ul class="switcher">
-        <li id="theme7"></li>
-        <li id="theme8"></li>
-        <li id="theme9"></li>
-        <li id="theme10"></li>
-        <li id="theme11"></li>
-        <li id="theme12"></li>
-		<li id="theme13"></li>
-        <li id="theme14"></li>
-        <li id="theme15"></li>
-      </ul>
-      
-     </div>
-   </div>
-  <!--end color switcher-->
-   
-  </div><!--End wrapper-->
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="../asset/js/jquery.min.js"></script>
-  <script src="../asset/js/popper.min.js"></script>
-  <script src="../asset/js/bootstrap.min.js"></script>
-	
- <!-- simplebar js -->
-  <script src="../asset/plugins/simplebar/js/simplebar.js"></script>
-  <!-- sidebar-menu js -->
-  <script src="../asset/js/sidebar-menu.js"></script>
-  <!-- loader scripts -->
-  <script src="../asset/js/jquery.loading-indicator.js"></script>
-  <!-- Custom scripts -->
-  <script src="../asset/js/app-script.js"></script>
-  <!-- Chart js -->
-  
-  <script src="../asset/plugins/Chart.js/Chart.min.js"></script>
- 
-  <!-- Index js -->
-  <script src="../asset/js/index.js"></script>
-
-  
-</body>
-</html>
+<?php 
+include "../layouts/footer.php";
+?>
