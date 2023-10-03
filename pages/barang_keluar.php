@@ -5,6 +5,7 @@ if (isset($_POST['addKeluar'])) {
     $barang = $_POST['nmbarang'];
     $qty    = $_POST['qty'];
     $penerima = $_POST['penerima'];
+    $usr = $_POST['user'];
 
     // cekstock barang
     $cekstock = mysqli_query($koneksi, "SELECT * FROM stock WHERE idbarang = '$barang'");
@@ -20,8 +21,8 @@ if (isset($_POST['addKeluar'])) {
         $stockkurang = $stocksekarang-$qty;
 
         // data inputan disimpan kedatabase data yg dikurangin
-        $datastocksekarang = mysqli_query($koneksi, "INSERT INTO keluar (idbarang, qty, penerima) VALUES
-        ('$barang','$qty','$penerima')");
+        $datastocksekarang = mysqli_query($koneksi, "INSERT INTO keluar (idbarang, qty, penerima, iduser) VALUES
+        ('$barang','$qty','$penerima', '$usr')");
         
         // logika saat barang di update setelah dikurangkan
         $updatestock = mysqli_query($koneksi, "UPDATE stock SET stock='$stockkurang' WHERE idbarang='$barang' ");

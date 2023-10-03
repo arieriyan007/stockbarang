@@ -6,6 +6,7 @@ if (isset($_POST['addMasuk'])) {
     $barang = $_POST['barangMasuk'];
     $qty = $_POST['qty'];
     $ket = $_POST['ket'];
+    $usr = $_POST['user'];
 
     // cek stock barang di database stock
     $cekstock = mysqli_query($koneksi, "SELECT * FROM stock WHERE idbarang = '$barang'");
@@ -16,7 +17,7 @@ if (isset($_POST['addMasuk'])) {
     $tambahstock = $stocksekarang+$qty;
 
     // proses tambah data di barang masuk
-    $tambahdata = mysqli_query($koneksi, "INSERT INTO masuk (idbarang, qty, keterangan) VALUES ('$barang', '$qty', '$ket')");
+    $tambahdata = mysqli_query($koneksi, "INSERT INTO masuk (idbarang, qty, keterangan, iduser) VALUES ('$barang', '$qty', '$ket', '$usr')");
 
     $updatestock = mysqli_query($koneksi, "UPDATE stock SET stock='$tambahstock' WHERE idbarang='$barang' ");
     if ($tambahdata&&$updatestock) {

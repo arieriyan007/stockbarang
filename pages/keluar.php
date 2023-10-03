@@ -50,8 +50,22 @@ include "../layouts/header.php";
                       </select>
                       <!-- akhir select barang keluar -->
 
-                      <input type="number" name="qty" class="form-control my-2">
-                      <input type="text" name="penerima" class="form-control">
+                      <input type="number" name="qty" class="form-control my-2" placeholder="jumlah barang keluar">
+                      <input type="text" name="penerima" class="form-control" placeholder="Penerima barang">
+                      <!-- select user yg input -->
+                      <select name="user" id="userId" class="form-control mt-2">
+                            <?php 
+                            $data = mysqli_query($koneksi, "SELECT * FROM login");
+                            while ($l = mysqli_fetch_array($data)) {
+                              $idu = $l['iduser'];
+                              $email = $l['email'];
+                            ?>
+                            <option value="<?= $idu; ?>"><?= $email; ?></option>
+                            <?php 
+                            }
+                            ?>
+                          </select>
+                          <!-- akhir user keluar -->
                     </div>
 
                     <!-- Modal footer -->

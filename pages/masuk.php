@@ -53,6 +53,18 @@ include "../layouts/header.php";
 
                           <input type="number" name="qty" placeholder="Jumlah barang masuk" class="form-control my-2" required>
                           <input type="text" name="ket" placeholder="Keterangan Pembelian" class="form-control" required>
+                          <select name="user" id="userId" class="form-control mt-2">
+                            <?php 
+                            $data = mysqli_query($koneksi, "SELECT * FROM login");
+                            while ($l = mysqli_fetch_array($data)) {
+                              $idu = $l['iduser'];
+                              $email = $l['email'];
+                            ?>
+                            <option value="<?= $idu; ?>"><?= $email; ?></option>
+                            <?php 
+                            }
+                            ?>
+                          </select>
                         </div>
 
                         <!-- Modal footer -->
