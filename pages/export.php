@@ -15,7 +15,16 @@ include "../cek.php";
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 </head>
-
+<!-- zoomable -->
+<style>
+    .zoomable {
+      width: 100px;
+    }
+    .zoomable:hover {
+      transform: scale(2);
+      transition: 0.8s ease;
+    }
+    </style>
 <body>
 <div class="container">
 			<h2 class="text-center mt-4">Stock barang</h2>
@@ -42,13 +51,13 @@ include "../cek.php";
                   $datastock = mysqli_query($koneksi, "SELECT * FROM stock");
 
                   while ($s = mysqli_fetch_array($datastock)) {
-                    $idb = $s['idbarang'];
-                    $nmbarang = $s['namabarang'];
-                    $stock = $s['stock'];
-                    $deskripsi = $s['deskripsi'];
-                    $satuan = $s['satuan'];
+                    $idb        = $s['idbarang'];
+                    $nmbarang   = $s['namabarang'];
+                    $stock      = $s['stock'];
+                    $deskripsi  = $s['deskripsi'];
+                    $satuan     = $s['satuan'];
                     // menampilkan gambar
-                    $gambar = $s['image'];
+                    $gambar     = $s['image'];
                     if ($gambar==null) {
                       // jika tidak ada gambar
                       $img = 'No Gambar';
