@@ -95,7 +95,7 @@ include "../cek.php";
                   <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                   <nav class="sb-sidenav-menu-nested nav">
                     <a class="nav-link" href="../inventory/inventory.php"><i class="fas fa-layer-group"></i>&nbsp; inventory</a>
-                    <!-- <a class="nav-link" href="#"><i class="fas fa-sitemap"></i>&nbsp; Seluruh Inventory IT</a> -->
+                    <a class="nav-link" href="peminjaman.php"><i class="fas fa-sitemap"></i>&nbsp; Peminjaman barang</a>
                   </nav>
                   </div>
               <a class="nav-link" href="../logout.php">

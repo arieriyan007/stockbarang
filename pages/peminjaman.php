@@ -4,36 +4,36 @@ include "../layouts/header.php";
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Barang Keluar</h1>
+            <h1 class="mt-4">Peminjaman Barang</h1>
             <ol class="breadcrumb mb-4">
-              <marquee behavior="" direction=""><li class="breadcrumb-item active">Informasi semua barang keluar</li></marquee>
+              <marquee behavior="" direction=""><li class="breadcrumb-item active">Informasi peminjaman barang</li></marquee>
             </ol>
             <!-- table -->
             <div class="card mb-4">
               <div class="card-header">
                 <!-- button modal bootstrap 5 -->
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myKeluar">
-                <i class="fas fa-plus"></i> Stock keluar
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myPinjam">
+                <i class="fas fa-plus"></i> Peminjaman baru
               </button>
               
               <!-- button export -->
-                <a href="export/exportKeluar.php" class="btn btn-info" title="Export data barang keluar" target="_blank">
+                <a href="#" class="btn btn-info" title="Export data barang keluar" target="_blank">
                   <i class="fas fa-file"></i> Export Laporan</a>
               <!-- akhir button export -->
 
               <!-- The Modal -->
-              <div class="modal fade" id="myKeluar">
+              <div class="modal fade" id="myPinjam">
                 <div class="modal-dialog">
                   <div class="modal-content">
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                      <h4 class="modal-title">Input barang keluar</h4>
+                      <h4 class="modal-title">Tambah data peminjaman</h4>
                       <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
                     <!-- Modal body -->
-                    <form action="barang_keluar.php" method="post">
+                    <form action="pinjam_keluar.php" method="post">
                     <div class="modal-body">
                       <!-- select databarang stock -->
                       <select name="nmbarang" id="nmbarang" class="form-control">
@@ -50,27 +50,13 @@ include "../layouts/header.php";
                       </select>
                       <!-- akhir select barang keluar -->
 
-                      <input type="number" name="qty" class="form-control my-2" placeholder="jumlah barang keluar">
+                      <input type="number" name="qty" class="form-control my-2" placeholder="jumlah barang dipinjam">
                       <input type="text" name="penerima" class="form-control" placeholder="Penerima barang">
-                      <!-- select user yg input -->
-                      <select name="user" id="userId" class="form-control mt-2">
-                            <?php 
-                            $data = mysqli_query($koneksi, "SELECT * FROM login");
-                            while ($l = mysqli_fetch_array($data)) {
-                              $idu = $l['iduser'];
-                              $email = $l['email'];
-                            ?>
-                            <option value="<?= $idu; ?>"><?= $email; ?></option>
-                            <?php 
-                            }
-                            ?>
-                          </select>
-                          <!-- akhir user keluar -->
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary" name="addKeluar">Save</button>
+                      <button type="submit" class="btn btn-primary" name="addPinjam">Simpan</button>
                     </div>
                     </form>
 
@@ -140,7 +126,7 @@ include "../layouts/header.php";
                       <th>Satuan</th>
                       <th>Tanggal</th>
                       <th>Penerima</th>
-                      <th>User</th>
+                      <th>Status</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -155,25 +141,25 @@ include "../layouts/header.php";
 
                       if ($mulai!=null || $akhir!=null) { //if disini berfungsi, jika filter tidak memilih tanggal maka tampilkan semua data masuk. baru lanjut skrip dibawah
                         // disini khusus untuk memfilter berdasarkan tanggal maka kita bisa tambahkan between dan DATE_ADD(variabel, INTERVAL 1 DAY), agar kehitung 1 hari akhirnya 
-                        $datakeluar = mysqli_query($koneksi, "SELECT * FROM keluar k, stock s, login l WHERE s.idbarang = k.idbarang AND k.iduser = l.iduser AND tanggal BETWEEN '$mulai' AND DATE_ADD('$akhir',INTERVAL 1 DAY) ORDER BY idkeluar DESC");
+                        $datakeluar = mysqli_query($koneksi, "SELECT * FROM peminjaman p, stock s WHERE s.idbarang = p.idbarang AND tgl_pinjam BETWEEN '$mulai' AND DATE_ADD('$akhir',INTERVAL 1 DAY) ORDER BY idpeminjaman DESC");
                       } else {
                         // jika tidak ada maka data dikembalikan secara berurutan
-                      $datakeluar = mysqli_query($koneksi, "SELECT * FROM keluar k, stock s, login l WHERE s.idbarang = k.idbarang AND k.iduser = l.iduser ORDER BY idkeluar DESC");
+                      $datakeluar = mysqli_query($koneksi, "SELECT * FROM peminjaman p, stock s WHERE s.idbarang = p.idbarang ORDER BY idpeminjaman DESC");
                       }
                   } else {
                     // jika tidak ada maka data dikembalikan secara berurutan
-                      $datakeluar = mysqli_query($koneksi, "SELECT * FROM keluar k, stock s, login l WHERE s.idbarang = k.idbarang AND k.iduser = l.iduser ORDER BY idkeluar DESC");
+                      $datakeluar = mysqli_query($koneksi, "SELECT * FROM peminjaman p, stock s WHERE s.idbarang = p.idbarang ORDER BY idpeminjaman DESC");
                   }
               
                     while ($dk = mysqli_fetch_array($datakeluar)) {
-                      $idk = $dk['idkeluar'];
+                      $idp = $dk['idpeminjaman'];
                       $idb = $dk['idbarang'];
                       $nmbarang = $dk['namabarang'];
-                      $qty = $dk['qty'];
                       $satuan = $dk['satuan'];
-                      $tanggal = $dk['tanggal'];
-                      $penerima = $dk['penerima'];
-                      $idu = $dk['email'];
+                      $tgl = $dk['tgl_pinjam'];
+                      $qty = $dk['qty'];
+                      $peminjam = $dk['peminjam'];
+                      $status = $dk['status'];
 
                       // cek ada gambar atau tidak
                       $gambar = $dk['image']; //ambil gambar
@@ -192,39 +178,45 @@ include "../layouts/header.php";
                       <td><?= $nmbarang; ?></td>
                       <td><?= $qty; ?></td>
                       <td><?= $satuan; ?></td>
-                      <td><?= $tanggal; ?></td>
-                      <td><?= $penerima; ?></td>
-                      <td><?= $idu; ?></td>
+                      <td><?= $tgl; ?></td>
+                      <td><?= $peminjam; ?></td>
+                      <td><?= $status; ?></td>
                       <td>
-                        <!-- membuat button modal Edit -->
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#myEdit<?= $idk; ?>" title="Edit barang">
-                         <i class="fas fa-edit"></i> Edit
-                        </button>     
+                        <?php 
+                        if ($status=='Dipinjam') {
+                            echo '<!-- membuat button modal Edit -->
+                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#myEdit'.$idk.'" title="Edit barang">
+                             <i class="fas fa-stamp"></i> Selesai
+                            </button>';
+                        } else {
+                            // jika statusnya kembali
+                            echo '';
+                        }
+                        ?>
+                        
                         <!-- The Modal -->
-                        <div class="modal fade" id="myEdit<?= $idk; ?>">
+                        <div class="modal fade" id="myEdit<?= $idp; ?>">
                           <div class="modal-dialog">
                             <div class="modal-content">
 
                               <!-- Modal Header -->
-                              <form action="editKeluar.php" method="post">
+                              <form action="barang_selesai.php" method="post">
                               <div class="modal-header">
-                                <h4 class="modal-title">Edit data Barang keluar</h4>
+                                <h4 class="modal-title">Peminjaman selesai</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                               </div>
 
                               <!-- Modal body -->
                               <div class="modal-body">
-                                <input type="hidden" name="idk1" value="<?= $idk; ?>">
-                                <input type="hidden" name="idb1" value="<?= $idb; ?>">
-
-                                <input type="text" name="nmbarang1" class="form-control" value="<?= $nmbarang; ?>" disabled>
-                                <input type="number" name="qty1" class="form-control my-1" value="<?= $qty; ?>">
-                                <input type="text" name="penerima1" class="form-control" value="<?= $penerima; ?>">
+                                Apakah barang ini sudah selesai dipinjam ? <b><?= $nmbarang; ?></b>
+                                <input type="hidden" name="idpinjam" value="<?= $idp; ?>">
+                                <input type="hidden" name="idbarang" value="<?= $idb; ?>">
+    
                               </div>
 
                               <!-- Modal footer -->
                               <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" name="updateKeluar" data-bs-dismiss="modal">Save</button>
+                                <button type="submit" class="btn btn-primary" name="barangSelesai" data-bs-dismiss="modal">Selesai</button>
                               </div>
                               </form>
 
@@ -232,42 +224,6 @@ include "../layouts/header.php";
                           </div>
                         </div>
                         <!-- akhir button modal edit -->
-
-                        <!-- button hapus modal -->
-                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#myHapus<?= $idk; ?>" title="Delete/hapus barang">
-                         <i class="fas fa-trash"></i> Hapus
-                        </button>  
-                        
-                        <!-- The Modal -->
-                          <div class="modal fade" id="myHapus<?= $idk; ?>">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-
-                                <!-- Modal Header -->
-                                <div class="modal-header">
-                                  <h4 class="modal-title">Modal Heading</h4>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-
-                                <!-- Modal body -->
-                                <form action="deleteKeluar.php" method="post">
-                                <div class="modal-body">
-                                  Apakah yakin ingin mengahapus barang ini : <b><?= $nmbarang; ?></b> ?
-                                  <input type="hidden" name="idk" value="<?= $idk; ?>">
-                                  <input type="hidden" name="qty" value="<?= $qty; ?>">
-                                    <input type="hidden" name="idb" value="<?= $idb; ?>">
-                                </div>
-
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                  <button type="submit" class="btn btn-primary btn-sm" data-bs-dismiss="modal" name="delKeluar">hapus</button>
-                                </div>
-                                </form>
-
-                              </div>
-                            </div>
-                          </div>
-                        <!-- akhir hapus modal -->
                       </td>
                     </tr>
                     <?php 

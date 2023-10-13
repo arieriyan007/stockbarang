@@ -17,7 +17,7 @@ include "../layouts/header.php";
                     <i class="fas fa-plus"></i> Stock masuk
                   </button>
                   <!-- button laporan export -->
-                  <a href="exportMasuk.php" class="btn btn-success" target="_blank" title="Laporan masuk export">
+                  <a href="export/exportMasuk.php" class="btn btn-success" target="_blank" title="Laporan masuk export">
                         <i class="fas fa-file"></i> Export laporan</a>
                       <!-- akhir laporan -->
                   <!-- The Modal -->

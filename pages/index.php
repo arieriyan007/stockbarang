@@ -17,7 +17,7 @@ include "../layouts/header.php";
             </button>
 
              <!-- button export/report --> 
-             <a href="export.php" class="btn btn-success" target="_blank" title="export laporan stock">
+             <a href="export/export.php" class="btn btn-success" target="_blank" title="export laporan stock">
               <i class="fas fa-print"></i> Export data
              </a>
               <!-- akhir button export -->
