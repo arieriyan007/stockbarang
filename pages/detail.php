@@ -22,6 +22,10 @@ if ($gambar==null) {
   // jika ada gambar
   $img = '<img src="../assets/img/'.$gambar.'" class="zoomable">'; //zoomable disini saya membuat costume css dibagian header.php
 }
+
+// generate QR dari google dengan akses google qr api -> pilih yg developers.google.com
+$urlview = 'http://stockbarang.test/pages/view.php?id='.$idbarang;  //jgn lupa buat jua url dari aplikasi kita dan jgn lupa ID nya kita sambungkan dengan idbarang kita
+$qrcode = 'https://chart.googleapis.com/chart?chs=120x120&cht=qr&chl='.$urlview.'&choe=UTF-8'; //hapus bagian Hello%20world dan di masukkan $urlview nya kedalam dengan menggunakan .$urlview.
 ?>
 
 <div id="layoutSidenav_content">
@@ -35,7 +39,9 @@ if ($gambar==null) {
             <div class="card mb-4">
               <div class="card-header">
                 <div class="col-md-10 mt-2" style="text-align: center;">
-                <?= $img; ?>
+                <?= $img; ?> &nbsp;
+                <!-- dibagian ini kita panggil image qrnya -->
+                <img src="<?= $qrcode; ?>" alt="QR by google api" class="zoomable">
                 <h4 class="mt-2"><?= $namabarang; ?></h4>
                 </div>
                 <div class="card-body">
