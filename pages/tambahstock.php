@@ -30,7 +30,7 @@ if (isset($_POST['addbarang'])) {
             if ($ukuran < 15728640) { 
                 move_uploaded_file($file_tmp, '../assets/img/'.$image);
                 // jika belum ada barnag maka barang masuk ke dalam database
-                $tamabahbarang = mysqli_query($koneksi, "INSERT INTO stock(namabarang, deskripsi, stock, satuan, image) VALUE 
+                $tamabahbarang = mysqli_query($koneksi, "INSERT INTO stock(namabarang, deskripsi, stock, satuan, image) VALUES 
                 ('$nbarang', '$deskripsi', '$stock', '$satuan', '$image')");
 
                 // jika data selesai input maka

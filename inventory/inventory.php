@@ -5,16 +5,16 @@ include "../layouts/header.php";
 <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Stock Barang</h1>
+            <h1 class="mt-4">Inventory IT</h1>
             <ol class="breadcrumb mb-4">
-              <marquee behavior="" direction=""><li class="breadcrumb-item active">Dashboard stock saat ini</li></marquee>
+              <marquee behavior="" direction=""><li class="breadcrumb-item active">Dashboard inventory saat ini</li></marquee>
             </ol>
             <!-- table -->
             <div class="card mb-4">
               <!-- membuat button modal bootstrap 5 -->
               <div class="card-header">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myStock">
-              <i class="fas fa-plus"></i> Stock Baru
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myInv">
+              <i class="fas fa-plus"></i> Inventory baru
             </button>
 
              <!-- button export/report --> 
@@ -25,31 +25,31 @@ include "../layouts/header.php";
               </div>
 
               <!-- The Modal -->
-            <div class="modal fade" id="myStock">
+            <div class="modal fade" id="myInv">
               <div class="modal-dialog">
                 <div class="modal-content">
 
                   <!-- Modal Header -->
                   <div class="modal-header">
-                    <h4 class="modal-title">Stock Baru</h4>
+                    <h4 class="modal-title">Barang inventory baru</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                   </div>
 
                   <!-- Modal body -->
                   <!-- membuat upload gambar/data bisa ditambahkan enctype="multipart/form-data" -->
-                  <form action="tambahstock.php" method="post" enctype="multipart/form-data">
+                  <form action="tambahinv.php" method="post" enctype="multipart/form-data">
                   <div class="modal-body">
-                    <input type="text" name="nbarang" placeholder="nama barang" class="form-control my-2" autofocus required>
-                    <input type="text" name="deskripsi" placeholder="Deskripsi barang" class="form-control my-2" required>
-                    <input type="number" name="stock" class="form-control" placeholder="Stock" required>
-                    <input type="text" name="satuan" class="form-control my-2" placeholder="Satuan" required>
+                    <input type="text" name="nobar" placeholder="No Inventory" class="form-control my-2" autofocus required>
+                    <input type="text" name="namabar" placeholder="Nama Barang" class="form-control my-2" required>
+                    <input type="text" name="merk" class="form-control" placeholder="Merk barang" required>
+                    <input type="date" name="tglpem" class="form-control my-2" placeholder="Tanggal Pembelian" required>
                     <input type="file" name="file" class="form-control" aria-label="Upload gambar" required>
                     <div class="invalid-feedback">silahkan upload gambar</div>
                   </div>
 
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" name="addbarang">Save</button>
+                    <button type="submit" class="btn btn-primary" name="addinv">Save</button>
                   </div>
                   </form>
 
@@ -112,12 +112,11 @@ include "../layouts/header.php";
                 <table id="datatablesSimple" class="table table-bordered table-striped table-hover" border="1" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>No</th>
+                      <th>No inventory</th>
                       <th>Gambar</th>
                       <th>Nama barang</th>
-                      <th>Stock</th>
-                      <th>Satuan</th>
-                      <th>Dekripsi</th>
+                      <th>Merk</th>
+                      <th>Tgl Pembelian</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -125,34 +124,32 @@ include "../layouts/header.php";
                   <tbody>
                   <!-- menampilkan isi dari database dengan php -->
                   <?php 
-                  $no = 1;
-                  $datastock = mysqli_query($koneksi, "SELECT * FROM stock");
+                  $datainv = mysqli_query($koneksi, "SELECT * FROM inventory");
 
-                  while ($s = mysqli_fetch_array($datastock)) {
-                    $idb = $s['idbarang'];
+                  while ($s = mysqli_fetch_array($datainv)) {
+                    $idi = $s['idinventory'];
+                    $nobra = $s['no_barang'];
                     $nmbarang = $s['namabarang'];
-                    $stock = $s['stock'];
-                    $deskripsi = $s['deskripsi'];
-                    $satuan = $s['satuan'];
+                    $merk = $s['merk'];
+                    $tglP = $s['tgl_pembelian'];
 
                     // cek ada gambar atau tidak
-                    $gambar = $s['image']; //ambil gambar
-                    if ($gambar==null) {
+                    $image = $s['image']; //ambil gambar
+                    if ($image==null) {
                       // jika tidak ada gambar
                       $img = 'No Gambar';
                     } else {
                       // jika ada gambar
-                      $img = '<img src="../assets/img/'.$gambar.'" class="zoomable">'; //zoomable disini saya membuat costume css dibagian header.php
+                      $img = '<img src="../assets/img/'.$image.'" class="zoomable">'; //zoomable disini saya membuat costume css dibagian header.php
                     }
                   ?>
 
                     <tr style="text-align:center"> 
-                      <td><?= $no++; ?></td>
+                      <td><?= $nobra; ?></td>
                       <td><?= $img; ?></td>
-                      <td><a style="text-decoration: none; color:black" title="klik untuk detail barang" href="detail.php?id=<?= $idb; ?>"><?= $nmbarang; ?></a></td>
-                      <td><?= $stock; ?></td>
-                      <td><?= $satuan; ?></td>
-                      <td><?= $deskripsi; ?></td>
+                      <td><?= $nmbarang; ?></td>
+                      <td><?= $merk; ?></td>
+                      <td><?= $tglP; ?></td>
                       <td>
                         <!-- hidden untuk id barang -->
                         <input type="hidden" name="idbarang" value="<?= $idb; ?>">
