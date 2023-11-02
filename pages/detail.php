@@ -11,7 +11,7 @@ $namabarang = $fetch['namabarang'];
 $deskripsi = $fetch['deskripsi'];
 $stock = $fetch['stock'];
 $satuan = $fetch['satuan'];
-$image = $fetch['image'];
+//$image = $fetch['image'];
 
 // cek ada gambar atau tidak
 $gambar = $fetch['image']; //ambil gambar
@@ -52,7 +52,7 @@ $qrcode = 'https://chart.googleapis.com/chart?chs=120x120&cht=qr&chl='.$urlview.
                 </div>
                 <div class="row">
                   <div class="col-md-2">Stock</div>
-                  <div class="col-md-10">: <?= $stock; ?></div>
+                  <div class="col-md-10">: <?= $stock; ?> <?= $satuan; ?></div>
                 </div>
                 <hr>
 
