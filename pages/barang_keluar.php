@@ -10,7 +10,7 @@ if (isset($_POST['addKeluar'])) {
     // cekstock barang
     $cekstock = mysqli_query($koneksi, "SELECT * FROM stock WHERE idbarang = '$barang'");
     $keepstock = mysqli_fetch_array($cekstock);
-
+    
     // periksa stok barang sekarang
     $stocksekarang = $keepstock['stock'];
 
